@@ -34,24 +34,41 @@ namespace NekoForms
         {
             if (assetCleanerBox.Checked)
             {
+                hasNotRequestedWorkerCancellation = false;
+
+                Thread.Sleep(1000);
+
                 if (Directory.Exists("C:\\NekoForms_Assets"))
                 {
+                    if (currentlyExistingForms.Any())
+                    {
+                        foreach (Form formToClose in currentlyExistingForms)
+                        {
+                            formToClose.Close();
+                        }
+                        currentlyExistingForms.Clear();
+                    }
+
+                    Thread.Sleep(2000);
+
                     DirectoryInfo mainDirectoryInfo = new DirectoryInfo("C:\\NekoForms_Assets");
                     DirectoryInfo[] subDirectoriesInfo = mainDirectoryInfo.GetDirectories();
-                    try
+                    mainDirectoryInfo.Attributes = FileAttributes.Normal;
+
+                    for (int dirIteration = 0; dirIteration < subDirectoriesInfo.Length; dirIteration++)
                     {
-                        mainDirectoryInfo.Attributes = FileAttributes.Normal;
-                        for (int dirIteration = 0; dirIteration < subDirectoriesInfo.Length; dirIteration++)
+                        subDirectoriesInfo[dirIteration].Attributes = FileAttributes.Normal;
+                        string[] subDirFiles = Directory.GetFiles(subDirectoriesInfo[dirIteration].FullName);
+                        foreach (string filePath in subDirFiles)
                         {
-                            subDirectoriesInfo[dirIteration].Attributes = FileAttributes.Normal;
-                            subDirectoriesInfo[dirIteration].Delete(true);
+                            GC.Collect();
+                            GC.WaitForPendingFinalizers();
+                            File.Delete(filePath);
+                            Thread.Sleep(100);
                         }
-                        mainDirectoryInfo.Delete(true);
+                        subDirectoriesInfo[dirIteration].Delete(true);
                     }
-                    catch
-                    {
-                        MessageBox.Show("Couldn't delete assets directory, try lauching with elevation. The program will now quit.", "Error");
-                    }
+                    mainDirectoryInfo.Delete(true);
                 }
                 else
                 {
@@ -228,7 +245,7 @@ namespace NekoForms
             secondsLabel.Text = (secondsTrackBar.Value / 10).ToString();
         }
 
-        private void fixedSizeBox_CheckedChanged(object sender, EventArgs e)
+        private void FixedSizeBox_CheckedChanged(object sender, EventArgs e)
         {
             if (fixedSizeBox.Checked)
             {
@@ -240,7 +257,7 @@ namespace NekoForms
             }
         }
 
-        private void dynamicSizeBox_CheckedChanged(object sender, EventArgs e)
+        private void DynamicSizeBox_CheckedChanged(object sender, EventArgs e)
         {
             if (dynamicSizeBox.Checked)
             {
@@ -256,7 +273,7 @@ namespace NekoForms
             }
         }
 
-        private void materialFlatButton1_Click(object sender, EventArgs e)
+        private void DeleteAllButton_Click(object sender, EventArgs e)
         {
             if (currentlyExistingForms.Any())
             {

@@ -39,7 +39,7 @@ namespace NekoForms
             this.materialTabSelector1 = new ReaLTaiizor.Controls.MaterialTabSelector();
             this.tabControl = new ReaLTaiizor.Controls.MaterialTabControl();
             this.mainPage = new System.Windows.Forms.TabPage();
-            this.materialFlatButton1 = new MaterialSkin.Controls.MaterialFlatButton();
+            this.closeAllButton = new MaterialSkin.Controls.MaterialFlatButton();
             this.materialLabel3 = new MaterialSkin.Controls.MaterialLabel();
             this.secondsLabel = new MaterialSkin.Controls.MaterialLabel();
             this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
@@ -227,7 +227,7 @@ namespace NekoForms
             // mainPage
             // 
             this.mainPage.BackColor = System.Drawing.Color.White;
-            this.mainPage.Controls.Add(this.materialFlatButton1);
+            this.mainPage.Controls.Add(this.closeAllButton);
             this.mainPage.Controls.Add(this.materialLabel3);
             this.mainPage.Controls.Add(this.secondsLabel);
             this.mainPage.Controls.Add(this.materialLabel2);
@@ -244,22 +244,22 @@ namespace NekoForms
             this.mainPage.TabIndex = 0;
             this.mainPage.Text = "Main tab";
             // 
-            // materialFlatButton1
+            // closeAllButton
             // 
-            this.materialFlatButton1.AutoSize = true;
-            this.materialFlatButton1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.materialFlatButton1.Depth = 0;
-            this.materialFlatButton1.Icon = null;
-            this.materialFlatButton1.Location = new System.Drawing.Point(184, 208);
-            this.materialFlatButton1.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.materialFlatButton1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialFlatButton1.Name = "materialFlatButton1";
-            this.materialFlatButton1.Primary = false;
-            this.materialFlatButton1.Size = new System.Drawing.Size(158, 36);
-            this.materialFlatButton1.TabIndex = 9;
-            this.materialFlatButton1.Text = "close all windows";
-            this.materialFlatButton1.UseVisualStyleBackColor = true;
-            this.materialFlatButton1.Click += new System.EventHandler(this.materialFlatButton1_Click);
+            this.closeAllButton.AutoSize = true;
+            this.closeAllButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.closeAllButton.Depth = 0;
+            this.closeAllButton.Icon = null;
+            this.closeAllButton.Location = new System.Drawing.Point(184, 208);
+            this.closeAllButton.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.closeAllButton.MouseState = MaterialSkin.MouseState.HOVER;
+            this.closeAllButton.Name = "closeAllButton";
+            this.closeAllButton.Primary = false;
+            this.closeAllButton.Size = new System.Drawing.Size(158, 36);
+            this.closeAllButton.TabIndex = 9;
+            this.closeAllButton.Text = "close all windows";
+            this.closeAllButton.UseVisualStyleBackColor = true;
+            this.closeAllButton.Click += new System.EventHandler(this.DeleteAllButton_Click);
             // 
             // materialLabel3
             // 
@@ -339,7 +339,7 @@ namespace NekoForms
             this.settingsPage.Location = new System.Drawing.Point(4, 22);
             this.settingsPage.Name = "settingsPage";
             this.settingsPage.Padding = new System.Windows.Forms.Padding(3);
-            this.settingsPage.Size = new System.Drawing.Size(347, 306);
+            this.settingsPage.Size = new System.Drawing.Size(347, 231);
             this.settingsPage.TabIndex = 1;
             this.settingsPage.Text = "Settings";
             // 
@@ -435,7 +435,7 @@ namespace NekoForms
             this.fixedSizeBox.TabIndex = 5;
             this.fixedSizeBox.Text = "Fixed width and height";
             this.fixedSizeBox.UseVisualStyleBackColor = true;
-            this.fixedSizeBox.CheckedChanged += new System.EventHandler(this.fixedSizeBox_CheckedChanged);
+            this.fixedSizeBox.CheckedChanged += new System.EventHandler(this.FixedSizeBox_CheckedChanged);
             // 
             // dynamicSizeBox
             // 
@@ -453,7 +453,7 @@ namespace NekoForms
             this.dynamicSizeBox.TabIndex = 4;
             this.dynamicSizeBox.Text = "Dynamic width and height";
             this.dynamicSizeBox.UseVisualStyleBackColor = true;
-            this.dynamicSizeBox.CheckedChanged += new System.EventHandler(this.dynamicSizeBox_CheckedChanged);
+            this.dynamicSizeBox.CheckedChanged += new System.EventHandler(this.DynamicSizeBox_CheckedChanged);
             // 
             // materialLabel4
             // 
@@ -523,7 +523,7 @@ namespace NekoForms
         private MaterialSkin.Controls.MaterialLabel materialLabel6;
         private MaterialSkin.Controls.MaterialLabel materialLabel5;
         private MaterialSkin.Controls.MaterialLabel materialLabel7;
-        private MaterialSkin.Controls.MaterialFlatButton materialFlatButton1;
+        private MaterialSkin.Controls.MaterialFlatButton closeAllButton;
         private ReaLTaiizor.Controls.MaterialSingleTextBox heightTextBox;
         private ReaLTaiizor.Controls.MaterialSingleTextBox widthTextBox;
         private MaterialSkin.Controls.MaterialCheckBox fixedSizeBox;
