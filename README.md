@@ -1,5 +1,5 @@
 # NekoForms
- Application that generates images of nekos so you can look at them! Is also generates images of dogs and cats! All images are provided by **nekos.life** API! If you enjoy the application don't hesistate to start it :)
+ Application that generates images of nekos so you can look at them! Is also generates images of dogs and cats! All images are provided by **nekos.life** API! If you enjoy the application don't hesistate to star it :)
 
 # Warning
  The application contains NSFW content!
@@ -23,7 +23,7 @@
 # Classes 
  **Program.cs** is responsible for creating all of the necessary directories upon lauching the application.  
 
- **FormCreation.cs** is the most important class which contains the method that handles the creation of the form (width, height, items, item placement, etc.) and one nested class **ImageInformation** that contains some methods for grabbing the image information after it gets downloaded on your PC.  
+ **FormCreation.cs** is the most important class which contains the method that handles the creation of the form (width, height, items, item placement, etc.) and one nested class **ImageInformation.cs** that contains some methods for grabbing the image information after it gets downloaded on your PC.  
 
  **EndPoints.cs** is a enum used to store all of the endpoints I am using in the application. It makes it way easier than declaring them as *string*.  
 
