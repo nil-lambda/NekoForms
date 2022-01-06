@@ -25,7 +25,7 @@
 
  **FormCreation.cs** is the most important class which contains the method that handles the creation of the form (width, height, items, item placement, etc.) and one nested class **ImageInformation** that contains some methods for grabbing the image information after it gets downloaded on your PC.  
 
- **EndPoints.cs** is a struct used to store all of the endpoints I am using in the application. It makes it way easier than declaring them as *string*.  
+ **EndPoints.cs** is a enum used to store all of the endpoints I am using in the application. It makes it way easier than declaring them as *string*.  
 
  **ICreate.cs** is a interface for abstraction.
 
