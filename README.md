@@ -5,13 +5,14 @@
  The application contains NSFW content!
 
 # Menu
- ![Main Tab](https://cdn.discordapp.com/attachments/916391368480415744/928431336233009203/unknown.png)
- ![Settings Tab](https://cdn.discordapp.com/attachments/916391368480415744/928431382483566632/unknown.png)
+ ![Main Tab](https://media.discordapp.net/attachments/933253043028393994/933253093024489502/NekoForms_-_MainTab.png)
+ ![Settings Tab](https://media.discordapp.net/attachments/933253043028393994/933253093502627900/NekoForms_-_SettingsTab.png)
+ ![Image Profile Tab](https://media.discordapp.net/attachments/933253043028393994/933253093842378842/NekoForms_-_ImageProfileTab.png)
 
 # Video example
- https://user-images.githubusercontent.com/69941441/148308479-fb75f636-43a2-4ddd-85c2-e4a3dd1cf653.mp4  
+ https://user-images.githubusercontent.com/69941441/150081518-1d2f6fe1-5c23-437e-9b1c-d9ef4afb467c.mp4  
  
- https://user-images.githubusercontent.com/69941441/148308483-2b0ac54a-e878-453d-8fe5-4f1461501dd7.mp4
+ https://user-images.githubusercontent.com/69941441/150081538-9283c272-ccce-4f82-8563-99e62f5b4e90.mp4
 
 # How does it work
  It creates the necessary directories (One main directory and couple subdirectories) under **C:\\** drive so we can store the images locally on the computer. The local download is necessary so we can grab the image information such as width and size. Don't worry, there is an option to delete the assets upon exiting the application!  
