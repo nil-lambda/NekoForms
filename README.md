@@ -1,13 +1,44 @@
-# NekoForms
- Application that generates images of nekos so you can look at them! Is also generates images of dogs and cats! All images are provided by **nekos.life** API! If you enjoy the application don't hesistate to star it :)
-
 # Warning
  The application contains NSFW content!
 
+# NekoForms
+ Application that generates images of nekos so you can look at them! Is also generates images of dogs and cats! All images are provided by **nekos.life** API! If you enjoy the application don't hesistate to star it :)
+ 
+# Running NekoForms on Linux
+ In order to run NekoForm on Linux you will have to install Wine as well as the Mono Package for Wine.
+* Install NekoForms and save it somewhere easily accessible (preferably Desktop or Downloads folder)
+* Installing Wine  
+    * Open terminal and type `sudo apt install wine`   
+* Installing Mono Package:  
+    * Open [this link](https://dl.winehq.org/wine/wine-mono/) and click on version **7.0.0/** (or newer one if available) and download `wine-mono-7.0.0-x86.msi` 
+* After Mono Package installation:  
+    * Open the terminal and type `wine64 uninstaller`  
+    * Press **Install** in the GUI and locate the package that you just downloaded then press **OK** ([Example](https://media.discordapp.net/attachments/933253043028393994/934240984919834634/Image_Example.png)). That's it!
+ * Running NekoForms:  
+    * Open the terminal and type `wine NekoFormsName.exe`  
+
+<h3 align="center">NekoForms now runs on Linux!</h3>
+
+<p align="center">
+  <img src="https://media.discordapp.net/attachments/933253043028393994/934227391759396864/unknown.png" width="750" height="350">
+  <img src="https://media.discordapp.net/attachments/933253043028393994/934228314191699968/unknown.png" width="750" height="350">
+</p>
+
+<h3 align="center">Images location</h3>
+<p align="center">You have to enable hidden files to see the <b>.wine</b> folder!</p>
+<p align="center">There is no change in the images directory. They are still being stored in the <b>C:\</b> directory!</p>
+
+
+<p align="center">
+ <img src="https://media.discordapp.net/attachments/933253043028393994/934233070188494938/Save_Location.png">
+</p>
+
 # Menu
- ![Main Tab](https://media.discordapp.net/attachments/933253043028393994/933253093024489502/NekoForms_-_MainTab.png)
- ![Settings Tab](https://media.discordapp.net/attachments/933253043028393994/933253093502627900/NekoForms_-_SettingsTab.png)
- ![Image Profile Tab](https://media.discordapp.net/attachments/933253043028393994/933253093842378842/NekoForms_-_ImageProfileTab.png)
+ <p align="center">
+  <img src="https://media.discordapp.net/attachments/933253043028393994/933253093024489502/NekoForms_-_MainTab.png">
+  <img src="https://media.discordapp.net/attachments/933253043028393994/933253093502627900/NekoForms_-_SettingsTab.png">
+  <img src="https://media.discordapp.net/attachments/933253043028393994/933253093842378842/NekoForms_-_ImageProfileTab.png">
+ </p>
 
 # Video example
  https://user-images.githubusercontent.com/69941441/150081518-1d2f6fe1-5c23-437e-9b1c-d9ef4afb467c.mp4  
@@ -21,20 +52,37 @@
    
  Deleting the assets is made easy since there is a option to do so upon exiting the application. Keep in mind that it might require elevation to do so!  
 
-# Classes 
- **Program.cs** is responsible for creating all of the necessary directories upon lauching the application.  
+# Folders and classes
+**Program.cs** - Responsible for creating all of the necessary directories upon lauching the application.  
 
- **FormCreation.cs** is the most important class which contains the method that handles the creation of the form (width, height, items, item placement, etc.) and one nested class **ImageInformation.cs** that contains some methods for grabbing the image information after it gets downloaded on your PC.  
+* **Abstraction** folder
+    * **ICreate.cs** - Interface for abstraction.
 
- **EndPoints.cs** is a enum used to store all of the endpoints I am using in the application. It makes it way easier than declaring them as *string*.  
- 
- **ImageProfile.cs** is class that contains properties and constructor so we can make object to that class that contains the necessary information about the image.  
- 
- **LogsMessage.cs** is a static class that contains methods that returns string. It is being used for logs.  
- 
- **LogsWindow.cs** is a static class that contains methods for working with the log window. **Initialize it**, **Show/Hide** it and **Send Logs** to it.  
+<br>
 
- **ICreate.cs** is a interface for abstraction.
+* **Menu** folder
+    * **Menu.cs** - The **master** class. Everything happens there (e.g. Button behaviour). We can't without it.
+ 
+<br>
+
+* **Utils** folder
+    * **EndPoints.cs** - Contains all endpoints (image types) that I use in the program.
+    
+    <br>
+    
+    * **FormCreation.cs** - The second **master** class. It contains important methods for getting the image link, downloading the image, getting the image dimensions, creating the image form properties etc.
+        
+    <br>
+    
+    * **ImageProfile.cs** - Contains properties and constructor with all the necessarry information about the image. It is used for creating an object for the image that later we can use in the program.
+        
+    <br>
+    
+    * **LogsMessage.cs** - Contains methods that returns a specific message and adds it to the log windows.
+        
+    <br>
+    
+    * **LogsWindow.cs** - Contains methods for working with the log window.
 
 # NuGet packages
  **RealTaiizor** - https://www.nuget.org/packages/ReaLTaiizor/ (Components for creating the GUI)  
