@@ -4,6 +4,20 @@
 # NekoForms
  Application that generates images of nekos so you can look at them! Is also generates images of dogs and cats! All images are provided by **nekos.life** API! If you enjoy the application don't hesistate to star it :)
  
+# Features
+ As of the latest NekoForms release the program has:
+ * Log window - Contains information about what's happening at the moment.
+ * Close all windows - Obviously, closes all opened windows.
+ * Image profile - Stores all images generated during the session as well as information about the image such as name, width, height and time of creation.
+ * Image preview - Previews the currently selected image in the **Image profile**  
+   
+ **Toggleable options below:**
+ * Cleanup on exit - Cleans NekoForms assets (downloaded images) on exit.
+ * Top most - NekoForms will be shown above all other windows.
+ * Duplicate exclude - Excludes all duplicated images. They are not being shown at all. Some endpoints have small variety of images leading to more and more duplicated images being generated, keep that in mind!
+ * Dynamic size - Opens the window with the original image size.
+ * Fixed size - Opens the window with size given by you.
+
 # Running NekoForms on Linux
  In order to run NekoForm on Linux you will have to install Wine as well as the Mono Package for Wine.
 * Install NekoForms and save it somewhere easily accessible (preferably Desktop or Downloads folder)
@@ -68,6 +82,10 @@
 * **Utils** folder
     * **EndPoints.cs** - Contains all endpoints (image types) that I use in the program.
     
+    <br>
+
+    * **DuplicateCheck.cs** - Contains method for checking whether or not the currently parsed image is duplicate. It checks for matching width, height and file size.
+
     <br>
     
     * **FormCreation.cs** - The second **master** class. It contains important methods for getting the image link, downloading the image, getting the image dimensions, creating the image form properties etc.
