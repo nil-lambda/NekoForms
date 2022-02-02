@@ -1,22 +1,24 @@
-﻿namespace NekoForms
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Diagnostics;
+using System.Threading;
+using System.Windows.Forms;
+using System.Collections.Generic;
+
+using ReaLTaiizor.Forms;
+
+namespace NekoForms
 {
-    using System;
-    using System.IO;
-    using System.Linq;
-    using System.Diagnostics;
-    using System.Threading;
-    using System.Windows.Forms;
-    using System.Collections.Generic;
-
-    using ReaLTaiizor.Forms;
-
     public partial class Menu : MaterialForm
     {
         public static Form logWindow = new Form();
+        public static List<ImageProfile> uniqueImages = new List<ImageProfile>();
         public static ImageProfile[] imageProfileArray = new ImageProfile[1];
         private readonly HashSet<Form> currentlyExistingForms = new HashSet<Form>();
         public static HashSet<PictureBox> formImageCollection = new HashSet<PictureBox>();
 
+        public static bool isCurrentDuplicate = false;
         private bool hasNotRequestedCycleCancellation;
 
         public Menu() => InitializeComponent();
@@ -28,7 +30,7 @@
             CheckForIllegalCrossThreadCalls = false;
             Thread cycleHandler = new Thread(Cycle);
 
-            secondsLabel.Text = (secondsTrackBar.Value / 10).ToString();
+            secondsLabel.Text = $"{secondsTrackBar.Value / 10} seconds until the next image";
             this.FormClosing += Form1_FormClosing;
             cycleHandler.Start();
 
@@ -105,38 +107,39 @@
                         {
                             var currentEndpoint = (Endpoints.Nekopoints_SFW)nekosEndpointSelection.SelectedIndex - 1;
                             formCreationObj.ParseEndpoint(currentEndpoint.ToString());
-                            formCreationObj.CreateFormProperties(ref _newForm, "Nekos - SFW", int.Parse(widthTextBox.Text.ToString()), int.Parse(heightTextBox.Text.ToString()), dynamicSizeBox.Checked, fixedSizeBox.Checked);
+                            formCreationObj.CreateFormProperties(ref _newForm, "Nekos - SFW", int.Parse(widthTextBox.Text.ToString()), int.Parse(heightTextBox.Text.ToString()), dynamicSizeBox.Checked, duplicateExcludeBox.Checked);
                         }
 
                         else if (imageTypeSelection.SelectedIndex == 1)
                         {
                             var currentEndpoint = (Endpoints.Nekopoints_NSFW)nekosEndpointSelection.SelectedIndex - 1;
                             formCreationObj.ParseEndpoint(currentEndpoint.ToString());
-                            formCreationObj.CreateFormProperties(ref _newForm, "Nekos - NSFW", int.Parse(widthTextBox.Text.ToString()), int.Parse(heightTextBox.Text.ToString()), dynamicSizeBox.Checked, fixedSizeBox.Checked);
+                            formCreationObj.CreateFormProperties(ref _newForm, "Nekos - NSFW", int.Parse(widthTextBox.Text.ToString()), int.Parse(heightTextBox.Text.ToString()), dynamicSizeBox.Checked, duplicateExcludeBox.Checked);
                         }
 
                         else if (imageTypeSelection.SelectedIndex == 2)
                         {
                             formCreationObj.ParseEndpoint("meow");
-                            formCreationObj.CreateFormProperties(ref _newForm, "Cats", int.Parse(widthTextBox.Text.ToString()), int.Parse(heightTextBox.Text.ToString()), dynamicSizeBox.Checked, fixedSizeBox.Checked);
+                            formCreationObj.CreateFormProperties(ref _newForm, "Cats", int.Parse(widthTextBox.Text.ToString()), int.Parse(heightTextBox.Text.ToString()), dynamicSizeBox.Checked, duplicateExcludeBox.Checked);
                         }
 
                         else if (imageTypeSelection.SelectedIndex == 3)
                         {
                             formCreationObj.ParseEndpoint("woof");
-                            formCreationObj.CreateFormProperties(ref _newForm, "Dogs", int.Parse(widthTextBox.Text.ToString()), int.Parse(heightTextBox.Text.ToString()), dynamicSizeBox.Checked, fixedSizeBox.Checked);
+                            formCreationObj.CreateFormProperties(ref _newForm, "Dogs", int.Parse(widthTextBox.Text.ToString()), int.Parse(heightTextBox.Text.ToString()), dynamicSizeBox.Checked, duplicateExcludeBox.Checked);
                         }
 
                         currentlyExistingForms.Add(_newForm);
-                        this.BeginInvoke((MethodInvoker)_newForm.Show);
-
-                        var anonymousCollection = imageProfileArray.Select(x => new { x.Name, x.Width, x.Height, x.CreationDate });
-                        foreach (var anonymousItem in anonymousCollection)
+                        if (!isCurrentDuplicate)
                         {
-                            imageListView.Items.Add(anonymousItem.Name).SubItems.AddRange(new string[] { $"{anonymousItem.Width}", $"{anonymousItem.Height}", anonymousItem.CreationDate.ToString("HH:mm:ss tt") });
+                            this.BeginInvoke((MethodInvoker)_newForm.Show);
+                            var anonymousCollection = imageProfileArray.Select(x => new { x.Name, x.Width, x.Height, x.CreationDate });
+                            foreach (var anonymousItem in anonymousCollection)
+                            {
+                                imageListView.Items.Add(anonymousItem.Name).SubItems.AddRange(new string[] { $"{anonymousItem.Width}", $"{anonymousItem.Height}", anonymousItem.CreationDate.ToString("HH:mm:ss tt") });
+                            }
                         }
 
-                        LogsWindow.SendLog(LogsMessage.GeneratedImage());
                         Thread.Sleep(500);
                     }
                 }
@@ -176,7 +179,7 @@
                 nekosEndpointSelection.Items.Add("Tits (Image)");
                 nekosEndpointSelection.Items.Add("Solo (Image)");
                 nekosEndpointSelection.Items.Add("Pussy (Image)");
-                nekosEndpointSelection.Items.Add("Cum (GIF)");
+                nekosEndpointSelection.Items.Add("Cum (Image)");
                 nekosEndpointSelection.Items.Add("Hentai (Image)");
                 nekosEndpointSelection.Items.Add("Keta (Image)");
                 nekosEndpointSelection.Items.Add("Feet (Image)");
@@ -221,29 +224,29 @@
 
         private void SecondsTrackBar_ValueChanged()
         {
-            secondsLabel.Text = (secondsTrackBar.Value / 10).ToString();
+            secondsLabel.Text = $"{(secondsTrackBar.Value / 10)} seconds until the next image";
         }
 
         private void FixedSizeBox_CheckedChanged(object sender, EventArgs e)
         {
             if (fixedSizeBox.Checked)
             {
-                dynamicSizeBox.Enabled = false;
+                dynamicSizeBox.Checked = false;
                 return;
             }
-            dynamicSizeBox.Enabled = true;
+            dynamicSizeBox.Checked = true;
         }
 
         private void DynamicSizeBox_CheckedChanged(object sender, EventArgs e)
         {
             if (dynamicSizeBox.Checked)
             {
-                fixedSizeBox.Enabled = false;
+                fixedSizeBox.Checked = false;
                 widthTextBox.Enabled = false;
                 heightTextBox.Enabled = false;
                 return;
             }
-            fixedSizeBox.Enabled = true;
+            fixedSizeBox.Checked = true;
             widthTextBox.Enabled = true;
             heightTextBox.Enabled = true;
         }
@@ -327,12 +330,6 @@
                 return;
             }
 
-            if (!fixedSizeBox.Checked && !dynamicSizeBox.Checked)
-            {
-                MessageBox.Show("Please select image size from \"Options\" tab", "Error");
-                return;
-            }
-
             hasNotRequestedCycleCancellation = true;
             LogsWindow.SendLog(LogsMessage.StartMessage());
         }
@@ -361,6 +358,16 @@
         private void ConsoleToggleButton_Click(object sender, EventArgs e)
         {
             LogsWindow.ShowWindow(logWindow.Opacity == 0);
+        }
+
+        private void TopMostBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (topMostBox.Checked)
+            {
+                this.TopMost = true;
+                return;
+            }
+            this.TopMost = false;
         }
     }
 }

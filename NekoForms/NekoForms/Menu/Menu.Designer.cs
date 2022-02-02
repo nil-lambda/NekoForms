@@ -42,9 +42,10 @@ namespace NekoForms
             this.startButton = new ReaLTaiizor.Controls.MaterialButton();
             this.materialLabel3 = new MaterialSkin.Controls.MaterialLabel();
             this.secondsLabel = new MaterialSkin.Controls.MaterialLabel();
-            this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
             this.secondsTrackBar = new ReaLTaiizor.Controls.DungeonTrackBar();
             this.settingsPage = new System.Windows.Forms.TabPage();
+            this.topMostBox = new MaterialSkin.Controls.MaterialCheckBox();
+            this.duplicateExcludeBox = new MaterialSkin.Controls.MaterialCheckBox();
             this.materialLabel7 = new MaterialSkin.Controls.MaterialLabel();
             this.materialLabel6 = new MaterialSkin.Controls.MaterialLabel();
             this.heightTextBox = new ReaLTaiizor.Controls.MaterialSingleTextBox();
@@ -152,15 +153,15 @@ namespace NekoForms
             this.assetCleanerBox.AutoSize = true;
             this.assetCleanerBox.Depth = 0;
             this.assetCleanerBox.Font = new System.Drawing.Font("Roboto", 10F);
-            this.assetCleanerBox.Location = new System.Drawing.Point(2, 39);
+            this.assetCleanerBox.Location = new System.Drawing.Point(2, 38);
             this.assetCleanerBox.Margin = new System.Windows.Forms.Padding(0);
             this.assetCleanerBox.MouseLocation = new System.Drawing.Point(-1, -1);
             this.assetCleanerBox.MouseState = MaterialSkin.MouseState.HOVER;
             this.assetCleanerBox.Name = "assetCleanerBox";
             this.assetCleanerBox.Ripple = true;
-            this.assetCleanerBox.Size = new System.Drawing.Size(337, 30);
+            this.assetCleanerBox.Size = new System.Drawing.Size(125, 30);
             this.assetCleanerBox.TabIndex = 0;
-            this.assetCleanerBox.Text = "Delete assets on exit - Elevation might be required";
+            this.assetCleanerBox.Text = "Cleanup on exit ";
             this.assetCleanerBox.UseVisualStyleBackColor = true;
             // 
             // materialTabSelector1
@@ -202,7 +203,6 @@ namespace NekoForms
             this.mainPage.Controls.Add(this.startButton);
             this.mainPage.Controls.Add(this.materialLabel3);
             this.mainPage.Controls.Add(this.secondsLabel);
-            this.mainPage.Controls.Add(this.materialLabel2);
             this.mainPage.Controls.Add(this.secondsTrackBar);
             this.mainPage.Controls.Add(this.materialLabel1);
             this.mainPage.Controls.Add(this.nekosEndpointSelection);
@@ -317,25 +317,12 @@ namespace NekoForms
             this.secondsLabel.Depth = 0;
             this.secondsLabel.Font = new System.Drawing.Font("Roboto", 11F);
             this.secondsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.secondsLabel.Location = new System.Drawing.Point(317, 174);
+            this.secondsLabel.Location = new System.Drawing.Point(65, 158);
             this.secondsLabel.MouseState = MaterialSkin.MouseState.HOVER;
             this.secondsLabel.Name = "secondsLabel";
             this.secondsLabel.Size = new System.Drawing.Size(32, 18);
             this.secondsLabel.TabIndex = 7;
             this.secondsLabel.Text = "null";
-            // 
-            // materialLabel2
-            // 
-            this.materialLabel2.AutoSize = true;
-            this.materialLabel2.Depth = 0;
-            this.materialLabel2.Font = new System.Drawing.Font("Roboto", 11F);
-            this.materialLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel2.Location = new System.Drawing.Point(6, 174);
-            this.materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel2.Name = "materialLabel2";
-            this.materialLabel2.Size = new System.Drawing.Size(176, 18);
-            this.materialLabel2.TabIndex = 6;
-            this.materialLabel2.Text = "Seconds until next image";
             // 
             // secondsTrackBar
             // 
@@ -345,12 +332,12 @@ namespace NekoForms
             this.secondsTrackBar.EmptyBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(221)))), ((int)(((byte)(221)))));
             this.secondsTrackBar.FillBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.secondsTrackBar.JumpToMouse = false;
-            this.secondsTrackBar.Location = new System.Drawing.Point(187, 173);
+            this.secondsTrackBar.Location = new System.Drawing.Point(86, 179);
             this.secondsTrackBar.Maximum = 200;
             this.secondsTrackBar.Minimum = 10;
             this.secondsTrackBar.MinimumSize = new System.Drawing.Size(47, 22);
             this.secondsTrackBar.Name = "secondsTrackBar";
-            this.secondsTrackBar.Size = new System.Drawing.Size(120, 22);
+            this.secondsTrackBar.Size = new System.Drawing.Size(158, 22);
             this.secondsTrackBar.TabIndex = 5;
             this.secondsTrackBar.Text = "dungeonTrackBar1";
             this.secondsTrackBar.ThumbBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
@@ -363,6 +350,8 @@ namespace NekoForms
             // settingsPage
             // 
             this.settingsPage.BackColor = System.Drawing.Color.White;
+            this.settingsPage.Controls.Add(this.topMostBox);
+            this.settingsPage.Controls.Add(this.duplicateExcludeBox);
             this.settingsPage.Controls.Add(this.materialLabel7);
             this.settingsPage.Controls.Add(this.materialLabel6);
             this.settingsPage.Controls.Add(this.heightTextBox);
@@ -379,6 +368,39 @@ namespace NekoForms
             this.settingsPage.Size = new System.Drawing.Size(347, 291);
             this.settingsPage.TabIndex = 1;
             this.settingsPage.Text = "Settings";
+            // 
+            // topMostBox
+            // 
+            this.topMostBox.AutoSize = true;
+            this.topMostBox.Depth = 0;
+            this.topMostBox.Font = new System.Drawing.Font("Roboto", 10F);
+            this.topMostBox.Location = new System.Drawing.Point(2, 64);
+            this.topMostBox.Margin = new System.Windows.Forms.Padding(0);
+            this.topMostBox.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.topMostBox.MouseState = MaterialSkin.MouseState.HOVER;
+            this.topMostBox.Name = "topMostBox";
+            this.topMostBox.Ripple = true;
+            this.topMostBox.Size = new System.Drawing.Size(116, 30);
+            this.topMostBox.TabIndex = 12;
+            this.topMostBox.Text = "Always on top";
+            this.topMostBox.UseVisualStyleBackColor = true;
+            this.topMostBox.CheckedChanged += new System.EventHandler(this.TopMostBox_CheckedChanged);
+            // 
+            // duplicateExcludeBox
+            // 
+            this.duplicateExcludeBox.AutoSize = true;
+            this.duplicateExcludeBox.Depth = 0;
+            this.duplicateExcludeBox.Font = new System.Drawing.Font("Roboto", 10F);
+            this.duplicateExcludeBox.Location = new System.Drawing.Point(2, 137);
+            this.duplicateExcludeBox.Margin = new System.Windows.Forms.Padding(0);
+            this.duplicateExcludeBox.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.duplicateExcludeBox.MouseState = MaterialSkin.MouseState.HOVER;
+            this.duplicateExcludeBox.Name = "duplicateExcludeBox";
+            this.duplicateExcludeBox.Ripple = true;
+            this.duplicateExcludeBox.Size = new System.Drawing.Size(145, 30);
+            this.duplicateExcludeBox.TabIndex = 11;
+            this.duplicateExcludeBox.Text = "Exclude duplicates";
+            this.duplicateExcludeBox.UseVisualStyleBackColor = true;
             // 
             // materialLabel7
             // 
@@ -399,7 +421,7 @@ namespace NekoForms
             this.materialLabel6.Depth = 0;
             this.materialLabel6.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel6.Location = new System.Drawing.Point(6, 242);
+            this.materialLabel6.Location = new System.Drawing.Point(6, 263);
             this.materialLabel6.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel6.Name = "materialLabel6";
             this.materialLabel6.Size = new System.Drawing.Size(52, 18);
@@ -409,7 +431,7 @@ namespace NekoForms
             // heightTextBox
             // 
             this.heightTextBox.Depth = 0;
-            this.heightTextBox.Location = new System.Drawing.Point(64, 238);
+            this.heightTextBox.Location = new System.Drawing.Point(64, 259);
             this.heightTextBox.MaxLength = 32767;
             this.heightTextBox.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             this.heightTextBox.Name = "heightTextBox";
@@ -430,7 +452,7 @@ namespace NekoForms
             this.materialLabel5.Depth = 0;
             this.materialLabel5.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel5.Location = new System.Drawing.Point(6, 211);
+            this.materialLabel5.Location = new System.Drawing.Point(6, 232);
             this.materialLabel5.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel5.Name = "materialLabel5";
             this.materialLabel5.Size = new System.Drawing.Size(46, 18);
@@ -440,7 +462,7 @@ namespace NekoForms
             // widthTextBox
             // 
             this.widthTextBox.Depth = 0;
-            this.widthTextBox.Location = new System.Drawing.Point(64, 207);
+            this.widthTextBox.Location = new System.Drawing.Point(64, 228);
             this.widthTextBox.MaxLength = 32767;
             this.widthTextBox.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             this.widthTextBox.Name = "widthTextBox";
@@ -462,7 +484,7 @@ namespace NekoForms
             this.fixedSizeBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.fixedSizeBox.Depth = 0;
             this.fixedSizeBox.Font = new System.Drawing.Font("Roboto", 10F);
-            this.fixedSizeBox.Location = new System.Drawing.Point(2, 157);
+            this.fixedSizeBox.Location = new System.Drawing.Point(2, 191);
             this.fixedSizeBox.Margin = new System.Windows.Forms.Padding(0);
             this.fixedSizeBox.MouseLocation = new System.Drawing.Point(-1, -1);
             this.fixedSizeBox.MouseState = MaterialSkin.MouseState.HOVER;
@@ -478,9 +500,8 @@ namespace NekoForms
             // 
             this.dynamicSizeBox.AutoSize = true;
             this.dynamicSizeBox.Depth = 0;
-            this.dynamicSizeBox.Enabled = false;
             this.dynamicSizeBox.Font = new System.Drawing.Font("Roboto", 10F);
-            this.dynamicSizeBox.Location = new System.Drawing.Point(2, 129);
+            this.dynamicSizeBox.Location = new System.Drawing.Point(2, 164);
             this.dynamicSizeBox.Margin = new System.Windows.Forms.Padding(0);
             this.dynamicSizeBox.MouseLocation = new System.Drawing.Point(-1, -1);
             this.dynamicSizeBox.MouseState = MaterialSkin.MouseState.HOVER;
@@ -498,7 +519,7 @@ namespace NekoForms
             this.materialLabel4.Depth = 0;
             this.materialLabel4.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel4.Location = new System.Drawing.Point(112, 93);
+            this.materialLabel4.Location = new System.Drawing.Point(112, 114);
             this.materialLabel4.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel4.Name = "materialLabel4";
             this.materialLabel4.Size = new System.Drawing.Size(107, 18);
@@ -509,7 +530,7 @@ namespace NekoForms
             // 
             this.materialDivider1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.materialDivider1.Depth = 0;
-            this.materialDivider1.Location = new System.Drawing.Point(53, 78);
+            this.materialDivider1.Location = new System.Drawing.Point(53, 99);
             this.materialDivider1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialDivider1.Name = "materialDivider1";
             this.materialDivider1.Size = new System.Drawing.Size(239, 1);
@@ -543,7 +564,7 @@ namespace NekoForms
             // 
             // previewPictureBox
             // 
-            this.previewPictureBox.BackColor = System.Drawing.Color.LightGray;
+            this.previewPictureBox.BackColor = System.Drawing.Color.WhiteSmoke;
             this.previewPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.previewPictureBox.Location = new System.Drawing.Point(115, 200);
             this.previewPictureBox.Name = "previewPictureBox";
@@ -692,7 +713,6 @@ namespace NekoForms
         private ReaLTaiizor.Controls.MaterialTabControl tabControl;
         private System.Windows.Forms.TabPage mainPage;
         private System.Windows.Forms.TabPage settingsPage;
-        private MaterialSkin.Controls.MaterialLabel materialLabel2;
         private ReaLTaiizor.Controls.DungeonTrackBar secondsTrackBar;
         private MaterialSkin.Controls.MaterialLabel secondsLabel;
         private MaterialSkin.Controls.MaterialLabel materialLabel3;
@@ -721,5 +741,7 @@ namespace NekoForms
         private ReaLTaiizor.Controls.MaterialButton stopButton;
         private ReaLTaiizor.Controls.MaterialButton logWindowToggleButton;
         private ReaLTaiizor.Controls.MaterialButton closeAllButton;
+        private MaterialSkin.Controls.MaterialCheckBox duplicateExcludeBox;
+        private MaterialSkin.Controls.MaterialCheckBox topMostBox;
     }
 }

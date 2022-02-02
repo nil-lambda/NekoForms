@@ -37,6 +37,9 @@
   <PropertyGroup>
     <ApplicationManifest>Manifest\app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="MaterialSkin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialSkin.Updated.0.2.2\lib\MaterialSkin.dll</HintPath>
@@ -66,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstraction\ICreate.cs" />
+    <Compile Include="Utils\DuplicateCheck.cs" />
     <Compile Include="Utils\LogsMessage.cs" />
     <Compile Include="Utils\LogsWindow.cs" />
     <Compile Include="Utils\EndPoints.cs" />

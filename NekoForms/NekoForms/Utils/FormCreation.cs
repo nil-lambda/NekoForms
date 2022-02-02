@@ -1,15 +1,17 @@
-﻿namespace NekoForms
+﻿using System;
+using System.IO;
+using System.Net;
+using System.Linq;
+using System.Drawing;
+using System.Net.Http;
+using Newtonsoft.Json;
+using System.Windows.Forms;
+
+using NekoForms.Abstraction;
+using NekoForms.Utils;
+
+namespace NekoForms
 {
-    using System;
-    using System.Net;
-    using System.Linq;
-    using System.Drawing;
-    using System.Net.Http;
-    using Newtonsoft.Json;
-    using System.Windows.Forms;
-
-    using NekoForms.Abstraction;
-
     public class FormCreation : ICreate
     {
         public string Endpoint { get; set; }
@@ -20,7 +22,7 @@
             public int Dynamic_Dim_Y { get; set; }
             public string Url { get; set; }
 
-            public void DownloadImageAndGetSize(string imageUrl, string subFolder)
+            public string[] DownloadImageAndGetSize(string imageUrl, string subFolder)
             {
                 Random randomChar = new Random();
                 WebClient wc = new WebClient();
@@ -31,21 +33,16 @@
 
                 wc.DownloadFile(imageUrl, path);
 
-                GetDimensions(path, fileName);
+                GetDimensions(path);
+
+                return new string[] { path, fileName };
             }
 
-            private void GetDimensions(string path, string fineNameToParse)
+            private void GetDimensions(string path)
             {
                 Image imgInfo = Image.FromFile(path);
                 this.Dynamic_Dim_X = imgInfo.Width;
                 this.Dynamic_Dim_Y = imgInfo.Height;
-
-                ParseInfo(path, fineNameToParse);
-            }
-
-            private void ParseInfo(string path, string fileNameToParse)
-            {
-                Menu.imageProfileArray[0] = new ImageProfile(fileNameToParse, Dynamic_Dim_X, Dynamic_Dim_Y, DateTime.Now);
             }
 
             public string ParseSubFolder(string subFolderName) => subFolderName;
@@ -82,31 +79,59 @@
             return PB;
         }
 
-        public void CreateFormProperties(ref Form _form, string subFolder, int fixedWidth, int fixedHeight, bool dynamicChecked, bool fixedChecked)
+        public void CreateFormProperties(ref Form _form, string subFolder, int fixedWidth, int fixedHeight, bool isDynamicChecked, bool isDuplicateExcludeAllowed)
         {
             ImageInformation imgInfo = new ImageInformation();
 
             string imageUrl = GetImageUrl();
             string subFolderName = imgInfo.ParseSubFolder(subFolder);
-            imgInfo.DownloadImageAndGetSize(imageUrl, subFolderName);
+            string[] pathAndFileName = imgInfo.DownloadImageAndGetSize(imageUrl, subFolderName);
 
-            if (dynamicChecked == true)
-            {
-                _form.Width = imgInfo.Dynamic_Dim_X;
-                _form.Height = imgInfo.Dynamic_Dim_Y;
-            }
-            else if (fixedChecked == true)
-            {
-                _form.Width = fixedWidth;
-                _form.Height = fixedHeight;
-            }
-            _form.StartPosition = FormStartPosition.CenterScreen;
-            _form.FormBorderStyle = FormBorderStyle.FixedSingle;
-            _form.MaximizeBox = false;
-            _form.ShowIcon = false;
-            _form.Text = "NekoBox";
+            DuplicateCheck currentImage = new DuplicateCheck(imgInfo.Dynamic_Dim_X, imgInfo.Dynamic_Dim_Y, new FileInfo(pathAndFileName[0]).Length);
 
-            _form.Controls.Add(CreatePictureBox(ref _form, imageUrl));
+            if (isDuplicateExcludeAllowed)
+            {
+                if (!Menu.uniqueImages.Any())
+                {
+                    Menu.uniqueImages.Add(new ImageProfile(pathAndFileName[1], imgInfo.Dynamic_Dim_X, imgInfo.Dynamic_Dim_Y, new FileInfo(pathAndFileName[0]).Length, DateTime.Now));
+                }
+                else
+                {
+                    Menu.isCurrentDuplicate = currentImage.DuplicateCheck_Current(ref Menu.uniqueImages);
+                    if (!Menu.isCurrentDuplicate)
+                    {
+                        Menu.uniqueImages.Add(new ImageProfile(pathAndFileName[1], imgInfo.Dynamic_Dim_X, imgInfo.Dynamic_Dim_Y, new FileInfo(pathAndFileName[0]).Length, DateTime.Now));
+                    }
+                }
+            }
+
+            if (!Menu.isCurrentDuplicate || !isDuplicateExcludeAllowed)
+            {
+                if (isDynamicChecked)
+                {
+                    _form.Width = imgInfo.Dynamic_Dim_X;
+                    _form.Height = imgInfo.Dynamic_Dim_Y;
+                }
+                else
+                {
+                    _form.Width = fixedWidth;
+                    _form.Height = fixedHeight;
+                }
+                _form.StartPosition = FormStartPosition.CenterScreen;
+                _form.FormBorderStyle = FormBorderStyle.FixedSingle;
+                _form.MaximizeBox = false;
+                _form.ShowIcon = false;
+                _form.Text = "NekoBox";
+
+                _form.Controls.Add(CreatePictureBox(ref _form, imageUrl));
+
+                Menu.imageProfileArray[0] = new ImageProfile(pathAndFileName[1], imgInfo.Dynamic_Dim_X, imgInfo.Dynamic_Dim_Y, new FileInfo(pathAndFileName[0]).Length, DateTime.Now);
+                LogsWindow.SendLog(LogsMessage.GeneratedImage());
+            }
+            else
+            {
+                LogsWindow.SendLog($"Duplicate! ({Menu.uniqueImages.Count} unique images!)");
+            }
         }
     }
 }

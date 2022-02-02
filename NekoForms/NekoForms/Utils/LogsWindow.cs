@@ -1,7 +1,8 @@
-﻿namespace NekoForms
+﻿using System.Windows.Forms;
+using System.Linq;
+
+namespace NekoForms
 {
-    using System.Windows.Forms;
-    using System.Linq;
     public static class LogsWindow
     {
         private static readonly Form _logWindow = Menu.logWindow;
