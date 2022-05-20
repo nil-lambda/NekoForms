@@ -1,7 +1,7 @@
 # Warning
  The application contains NSFW content!
  
- =**NSFW Endpoints are not working anymore due to nekos.life having problems with CF.**
+ =**NSFW Endpoints are not working anymore due to nekos.life having problems with CF.**  
  =**A newer version is being developed better than this one.**
 
 # NekoForms
