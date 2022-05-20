@@ -1,7 +1,8 @@
 # Warning
  The application contains NSFW content!
  
- =**NSFW Endpoints are not working due to nekos.life having API issues.**
+ =**NSFW Endpoints are not working anymore due to nekos.life having problems with CF.**
+ =**A newer version is being developed better than this one.**
 
 # NekoForms
  Application that generates images of nekos so you can look at them! Is also generates images of dogs and cats! All images are provided by **nekos.life** API! If you enjoy the application don't hesistate to star it :)
