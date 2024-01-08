@@ -1,4 +1,4 @@
-# NekoForms is currently broken
+# NekoForms is partially broken
  I am aware that the program is not functioning correctly due to certain APIs no longer working and some endpoints being removed. I will do my best to update the project, removing the deprecated APIs and replacing them with functional ones in due course.
 
 # Warning
